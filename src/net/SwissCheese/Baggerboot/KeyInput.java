@@ -2,24 +2,44 @@ package net.SwissCheese.Baggerboot;
 
 import org.lwjgl.input.Keyboard;
 
-class KeyInput {
-    
-    //Check for any keys that are pressed.
-    static void listen(){
-        if(Keyboard.isKeyDown(Keyboard.KEY_W)){
-            
-        }
-        if(Keyboard.isKeyDown(Keyboard.KEY_A)){
-            
-        }
-        if(Keyboard.isKeyDown(Keyboard.KEY_S)){
-            
-        }
-        if(Keyboard.isKeyDown(Keyboard.KEY_D)){
-            
-        }
-        if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)){
-            Render3D.requestClose();
-        }
+public class KeyInput
+{
+  Main main = new Main();
+
+  private float movementSpeed = this.main.getMovementSpeed();
+  private float dt;
+
+  public void listen()
+  {
+    this.dt = Render3D.dt;
+    if (Keyboard.isKeyDown(17)) {
+      FirstPersonCamera.walkForward(this.movementSpeed * this.dt);
     }
+    if (Keyboard.isKeyDown(31)) {
+      FirstPersonCamera.walkBackwards(this.movementSpeed * this.dt);
+    }
+    if (Keyboard.isKeyDown(30)) {
+      FirstPersonCamera.strafeLeft(this.movementSpeed * this.dt);
+    }
+    if (Keyboard.isKeyDown(32)) {
+      FirstPersonCamera.strafeRight(this.movementSpeed * this.dt);
+    }
+    if (Keyboard.isKeyDown(46)) {
+      FirstPersonCamera.moveUp(this.movementSpeed * this.dt);
+    }
+    if (Keyboard.isKeyDown(44)) {
+      FirstPersonCamera.moveDown(this.movementSpeed * this.dt);
+    }
+    if (Keyboard.isKeyDown(1)) {
+      Render3D.closeRequested = true;
+    }
+    while (Keyboard.next())
+    {
+      if ((Keyboard.getEventKey() == 33) && (Keyboard.getEventKeyState())) {
+        Render3D.toggleFullScreen();
+      }
+      if ((Keyboard.getEventKey() == 57) && (Keyboard.getEventKeyState()))
+        Render3D.toggleFalling();
+    }
+  }
 }

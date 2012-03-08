@@ -1,26 +1,11 @@
 package net.SwissCheese.Baggerboot;
 
-class Block {
+public class Block
+{
+  private boolean[] sides = { true, true, true, true, true, true };
+  private int[] pos = { 0, 0, 0 };
 
-    private boolean sides[] = {true, true, true, true, true, true};
-    private int ID;
-
-    public Block(int ID) {
-        this.ID = ID;
-        getTextureMap();
-    }
-
-    private void getTextureMap() {
-        /*switch (ID) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-
-        }*/
-    }
+  public void update()
+  {
+  }
 }

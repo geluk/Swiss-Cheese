@@ -1,8 +1,8 @@
 package net.SwissCheese.Baggerboot;
-public class World {
-    private static Chunk chunks[][] = new Chunk[Main.getVDistance()*2][Main.getVDistance()*2];
-    public static void addChunk(Chunk chunk, int x, int z){
-        chunks[x][z] = chunk;
-        chunks[x][z].init();
-    }
+public class World
+{
+  private static Main main = new Main();
+  private static int vDistance = main.getVDistance();
+  private static int hMax = main.getHMax();
+  private static int[][][] blocks = new int[vDistance * 16 * 2][hMax][vDistance * 2];
 }
