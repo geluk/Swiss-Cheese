@@ -11,7 +11,7 @@ class Block {
     }
 
     private void getTextureMap() {
-        switch (ID) {
+        /*switch (ID) {
             case 1:
                 break;
             case 2:
@@ -21,6 +21,6 @@ class Block {
             case 4:
                 break;
 
-        }
+        }*/
     }
 }

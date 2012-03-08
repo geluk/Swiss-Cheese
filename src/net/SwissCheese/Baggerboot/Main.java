@@ -3,7 +3,7 @@ package net.SwissCheese.Baggerboot;
 import java.util.Scanner;
 
 public class Main {
-    
+
     static final int major = 1;
     static final int minor = 0;
     static final int debug = 0;
@@ -11,7 +11,8 @@ public class Main {
     static final int chunkDims = 16;
     static final int chunkHeight = 32;
     private static long seed;
-    
+    private static int vDistance;
+
     private static void setLibrary(){
         System.out.print("Auto-detected OS: ");
         switch(OSValidator.getOS()) {
@@ -38,22 +39,42 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        System.out.println(toFloat(-1));
         System.out.println("==============================================");
         System.out.println("\tSwiss Cheese " + version);
         System.out.println("==============================================");
         setLibrary();
         testInputVariables();
+        loadChunks();
         Render3D.run();
     }
 
     private static void testInputVariables() {
         Scanner input = new Scanner(System.in);
         System.out.println("Please input the desired render distance:");
-        int var;
-        var  = input.nextInt();
-        seed = var;
+        vDistance = input.nextInt();
+        System.out.println("Please input the world seed.");
+        seed = input.nextLong();
     }
     static long getSeed(){
         return seed;
+    }
+    static int getVDistance(){
+        return vDistance;
+    }
+    private static void loadChunks() {
+        for(int i = 0; i< vDistance; i++){
+            for(int j = 0; j< vDistance; j++){
+                World.addChunk(new Chunk(), i, j);
+            }
+        }
+    }
+    public static float toFloat(int rgb){
+        if(rgb>255){
+            return 1.0f;
+        }else if(rgb<=0){
+            return 0.0f;
+        }
+        return ((float)rgb/255);
     }
 }

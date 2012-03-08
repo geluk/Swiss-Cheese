@@ -19,6 +19,10 @@ public class Chunk {
 
     private void load() {
     }
+    
+    public void update(int x, int y, int z){
+        
+    }
 
     private void generate() {
         octave0 = new Perlin(Main.getSeed(), 64);
@@ -34,11 +38,14 @@ public class Chunk {
                             + 4*octave1.getNoiseLevelAtPosition(i, k) 
                             + 8*octave2.getNoiseLevelAtPosition(i, k) 
                             + 16*octave3.getNoiseLevelAtPosition(i, k)){
-                        blockData[i][j][k] = new Block(0);
+                        blockData[i][j][k] = new Block(1);
                         
                     }
                 }
             }
         }
+    }
+    Block getBlock(int x, int y, int z){
+        return blockData[x][y][z];
     }
 }

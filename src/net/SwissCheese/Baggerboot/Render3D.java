@@ -6,13 +6,19 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.glu.GLU;
 
 class Render3D {
+    
+    public static long getTime(){
+        return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+    }
 
     private static boolean closeRequested = false;
-
+    private static int lastFPS;
     //The main method for all 3D rendering.
     static void run() {
+        lastFPS = (int) getTime();
         createWindow();
         System.out.println("Setting up OpenGL");
         initGL();
@@ -51,8 +57,20 @@ class Render3D {
         GL11.glViewport(0, 0, width, height);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-
+        GLU.gluPerspective(45.0f, (float) width/(float) height, 0.1f, 100.0f);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
+        GL11.glLoadIdentity();
         //GL11.glEnable(GL11.GL_TEXTURE_2D); //Required later
+        
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        
+        GL11.glShadeModel(GL11.GL_SMOOTH);
+        GL11.glClearColor(Main.toFloat(76), Main.toFloat(215), Main.toFloat(255), 0.0f);
+        GL11.glClearDepth(1.0f);
+        GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
+        GL11.glOrtho(0, width, height, 0, 1, -1);
+        
     }
 
     private static void input() {
@@ -74,6 +92,5 @@ class Render3D {
         Display.destroy();
     }
     private static void drawBlock(Block block){
-        
     }
 }
