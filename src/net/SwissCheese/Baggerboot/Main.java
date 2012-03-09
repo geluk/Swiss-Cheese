@@ -11,11 +11,11 @@ public class Main
   private static boolean debugging = false;
   private static boolean flying = false;
   private static int vDistance = 1;
-  private static long seed = 19L;
+  private static long seed = 19;
   private static int hMax = 34;
 
-  private float mouseSensitivity = 0.15F;
-  private float movementSpeed = 4.0F;
+  private float mouseSensitivity = 0.15f;
+  private float movementSpeed = 4.0f;
 
   private static void testOS()
   {
@@ -74,7 +74,7 @@ public class Main
   {
     System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "\\native\\windows");
     vDistance = 2;
-    seed = 2L;
+    seed = 2;
   }
 
   private static void debug()
@@ -83,15 +83,12 @@ public class Main
 
   public float toFloat(int x)
   {
-    if (x > 255)
-      return 1.0F;
-    if (x == 0) {
-      return 0.0F;
+    if (x >= 255)
+      return 1.0f;
+    if (x <= 0) {
+      return 0.0f;
     }
-
-    double y = 392.0D;
-    y *= x;
-    return (float)y / 100000.0F;
+    return ((float)x/255);
   }
 
   boolean getFlying()

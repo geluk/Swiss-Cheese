@@ -16,16 +16,16 @@ import org.newdawn.slick.opengl.TextureLoader;
 public class Render3D {
 
     private static boolean fullscreen = false;
-    private static long lastFrame = 0L;
+    private static long lastFrame = 0;
     public static boolean closeRequested = false;
     private static Texture t_blocks;
     private static final Main main = new Main();
     private static KeyInput keyInput = new KeyInput();
-    public static float dx = 0.0F;
-    public static float dy = 0.0F;
-    public static float dt = 0.0F;
-    private static float lastTime = 0.0F;
-    private static float time = 0.0F;
+    public static float dx = 0.0f;
+    public static float dy = 0.0f;
+    public static float dt = 0.0f;
+    private static float lastTime = 0.0f;
+    private static float time = 0.0f;
     private static float mouseSensitivity = main.getMouseSensitivity();
     private static boolean falling;
     private static final int vDistance = main.getVDistance();
@@ -81,9 +81,9 @@ public class Render3D {
         loadTextures();
 
         Mouse.setGrabbed(true);
-        FirstPersonCamera.setCam(-10.0F, -14.0F, -10.0F);
-        FirstPersonCamera.setYaw(-45.0F);
-        FirstPersonCamera.setPitch(-315.0F);
+        FirstPersonCamera.setCam(-10.0f, -14.0f, -10.0f);
+        FirstPersonCamera.setYaw(-45.0f);
+        FirstPersonCamera.setPitch(-315.0f);
 
         while (!closeRequested) {
             if (falling) {
@@ -163,7 +163,7 @@ public class Render3D {
         GL11.glViewport(0, 0, width, height);
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glLoadIdentity();
-        GLU.gluPerspective(45.0f, width / height, 0.1f, 100.0f);
+        GLU.gluPerspective(45.0f, (float)width / (float)height, 0.1f, 100.0f);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -172,10 +172,15 @@ public class Render3D {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         GL11.glShadeModel(GL11.GL_SMOOTH);
-        GL11.glClearColor(main.toFloat(76), main.toFloat(215), main.toFloat(255), 0.0f);
+        GL11.glClearColor(0.0f, main.toFloat(226), main.toFloat(255), 0.0f);
         GL11.glClearDepth(1.0f);
-        GL11.glEnable(2929);
-        GL11.glDepthFunc(515);
+        
+        //GL11.glEnable(2929);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        
+        //GL11.glDepthFunc(515);
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
+        
         GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
         GL11.glOrtho(0, width, height, 0, 1, -1);
 
@@ -185,19 +190,25 @@ public class Render3D {
     public static void drawCube(float x, float y, float z, float[] ftexX, float[] ftexY) {
         GL11.glLoadIdentity();
         FirstPersonCamera.lookThrough();
+        
         GL11.glTranslatef(x / 2.0F, y / 2.0F, z / 2.0F);
-        GL11.glTexParameteri(3553, 10240, 9728);
-        GL11.glTexParameteri(3553, 10242, 10496);
-        GL11.glTexParameteri(3553, 10243, 10496);
+        
+//        GL11.glTexParameteri(3553, 10240, 9728);
+//        GL11.glTexParameteri(3553, 10242, 10496);
+//        GL11.glTexParameteri(3553, 10243, 10496);
+        
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_NEAREST);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_CLAMP);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_CLAMP);
 
         for (int i = 0; i < 6; i++) {
-            ftexX[i] /= 4.0F;
+            ftexX[i] /= 4;
         }
         for (int i = 0; i < 6; i++) {
-            ftexY[i] /= 4.0F;
+            ftexY[i] /= 4;
         }
 
-        float delta = 0.25F;
+        float delta = 0.25f;
 
         if (front) {
             GL11.glBegin(7);
