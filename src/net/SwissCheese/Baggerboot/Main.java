@@ -1,6 +1,5 @@
 package net.SwissCheese.Baggerboot;
 
-import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

@@ -1,8 +1,8 @@
 package net.SwissCheese.Baggerboot;
 
+
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Mouse;
@@ -59,7 +59,7 @@ public class Render3D {
         try {
             t_blocks = TextureLoader.getTexture("PNG", new FileInputStream("tex/blocks.png"));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.print(ex.getMessage());
             System.out.println("An error has occured. The generated wall of text may be helpful to the developers.");
             System.out.println("If this is not a known issue, please consider sending it. Thank you.");
             failed = true;
@@ -404,7 +404,7 @@ public class Render3D {
                 Display.setDisplayMode(new DisplayMode(1920, 1080));
             }
         } catch (LWJGLException ex) {
-            ex.printStackTrace();
+            System.out.print(ex.getMessage());
         }
     }
 }

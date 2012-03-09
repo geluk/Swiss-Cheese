@@ -112,6 +112,6 @@ public class FirstPersonCamera
     return pitch;
   }
   public static void setPitch(float pitch) {
-    pitch = pitch;
+    FirstPersonCamera.pitch = pitch;
   }
 }
